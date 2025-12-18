@@ -3,7 +3,7 @@
 **A Pedagogical R Package for Learning Statistics Through Practice**
 
 ![R](https://img.shields.io/badge/R-%23276DC3.svg?style=for-the-badg&logo=r&logoColor=white)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Version](https://img.shields.io/badge/Version-0.1.0-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
@@ -41,72 +41,7 @@ devtools::install_github("ojforsberg/KnoxStats")
 4. **Learning Objectives**: Each function clearly states what concepts it teaches
 5. **Practice Exercises**: Built-in exercises with solutions
 
-### Example: Learning Mode
-
-```r
-# Enable learning mode for detailed output
-options(knoxstats_learning_mode = TRUE)
-
-# Now functions show their work
-result <- simple_ttest(c(1,2,3,4,5), c(2,3,4,5,6))
-# Output includes:
-# - Step-by-step calculation
-# - Formula used
-# - Interpretation guide
-# - Common misconceptions
-```
-
-## 🔧 For Instructors
-
-### Customizing for Your Course
-
-```r
-# Set course-specific defaults
-set_course_defaults(
-  alpha = 0.05,
-  decimal_places = 3,
-  language = "simple"  # "simple", "technical", or "detailed"
-)
-
-# Create custom assignments
-assignment <- create_assignment(
-  topic = "Hypothesis Testing",
-  difficulty = "intermediate",
-  learning_objectives = c("t-tests", "p-values", "effect size")
-)
-```
-
-### Integration with Learning Management Systems
-
-KnoxStats outputs can be easily integrated with:
-- R Markdown for reproducible reports
-- Shiny apps for interactive learning
-- Learning management system quizzes
-- Jupyter notebooks with R kernel
-
-## 📚 Documentation
-
-- **Function Reference**: Complete documentation for all functions
-- **Vignettes**: Detailed tutorials with examples
-- **Cheat Sheets**: Quick reference guides for students
-- **Video Tutorials**: Screen recordings of common analyses
-
 View the full documentation at: [knoxstats.github.io](https://knoxstats.github.io)
-
-## 🤝 Contributing
-
-We welcome contributions from educators and students! Whether you're:
-- **An instructor** with ideas for new teaching functions
-- **A student** who found a confusing concept that needs better explanation
-- **A developer** who wants to improve the codebase
-
-Please see our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md).
-
-### Quick Contribution Ideas:
-1. Add an example dataset from your research area
-2. Create a tutorial for a specific statistical concept
-3. Improve error messages for common student mistakes
-4. Add translations for non-English speaking students
 
 ## 📄 License
 
