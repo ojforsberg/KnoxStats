@@ -1,3 +1,5 @@
+<img src="hex-KnoxStats.png" alt="KnoxStats Hex" style="width:500; float:right;">
+
 # KnoxStats 📊
 
 **A Pedagogical R Package for Learning Statistics Through Practice**
