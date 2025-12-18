@@ -1,6 +1,6 @@
-<img src="hex-KnoxStats.png" alt="KnoxStats Hex" style="width:500; float:right;">
-
 # KnoxStats 📊
+
+<img src="hex-KnoxStats.png" alt="KnoxStats Hex" style="width:500; float:right;" align="right">
 
 **A Pedagogical R Package for Learning Statistics Through Practice**
 
@@ -8,6 +8,12 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Version](https://img.shields.io/badge/Version-0.1.0-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Active-success.svg)
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
 
 ## 🎯 Overview
 
