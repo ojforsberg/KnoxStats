@@ -1,0 +1,105 @@
+#' @title 
+#' Sample Excess Kurtosis
+#' 
+#' @description
+#' Computes the sample excess kurtosis of a numeric vector. Excess kurtosis is
+#' a measure of the "tailedness" of a distribution relative to the normal distribution.
+#' A value of 0 indicates a distribution with kurtosis similar to a normal distribution
+#' (mesokurtic). Positive values indicate heavier tails (leptokurtic), while negative
+#' values indicate lighter tails (platykurtic).
+#' 
+#' @param x A numeric vector. Missing values (`NA`) will be removed with a warning.
+#' 
+#' @return
+#' A numeric value representing the sample excess kurtosis. Returns `NA` if the input
+#' has insufficient non-missing values (less than 4) or zero variance.
+#' 
+#' @details
+#' The function calculates the unbiased estimator of excess kurtosis using the formula:
+#' \deqn{G_2 = \frac{(n-1)}{(n-2)(n-3)} \left[(n+1)\frac{m_4}{m_2^2} - 3(n-1)\right]}
+#' where \eqn{n} is the sample size, \eqn{m_2} is the second central moment (variance),
+#' and \eqn{m_4} is the fourth central moment.
+#' 
+#' This implementation:
+#' \itemize{
+#'   \item{Handles missing values by removing them with a warning}
+#'   \item{Returns `NA` for insufficient sample size (n < 4)}
+#'   \item{Returns `NA` for zero variance to avoid division by zero}
+#'   \item{Provides an unbiased estimate suitable for sample data}
+#' }
+#' 
+#' @examples
+#' # Normal distribution (should be close to 0)
+#' set.seed(123)
+#' normal_data <- rnorm(1000)
+#' kurtosis(normal_data)
+#' 
+#' # Leptokurtic distribution (positive excess kurtosis)
+#' leptokurtic_data <- c(rnorm(800), runif(200, -5, 5))
+#' kurtosis(leptokurtic_data)
+#' 
+#' # Platykurtic distribution (negative excess kurtosis)
+#' platykurtic_data <- runif(1000, -1, 1)
+#' kurtosis(platykurtic_data)
+#' 
+#' # With missing values
+#' data_with_na <- c(1, 2, 3, 4, NA, 5, 6, 7, 8)
+#' kurtosis(data_with_na)
+#' 
+#' # Edge cases
+#' kurtosis(c(1, 1, 1, 1))  # Zero variance
+#' kurtosis(c(1, 2, 3))     # Insufficient sample size
+#' 
+#' # Compare with other R packages
+#' if (requireNamespace("e1071", quietly = TRUE)) {
+#'   e1071::kurtosis(normal_data, type = 2)
+#' }
+#' 
+#' @seealso
+#' \code{\link{skewness}} for related moment-based statistics,
+#' \code{\link{mean}}, \code{\link{sd}} for basic statistics,
+#' \code{\link[psych]{kurtosi}} in the \pkg{psych} package for alternative implementations,
+#' \code{\link[e1071]{kurtosis}} in the \pkg{e1071} package
+#' 
+#' @references
+#' \itemize{
+#'   \item{Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample skewness and kurtosis.
+#'         Journal of the Royal Statistical Society: Series D (The Statistician), 47(1), 183-189.}
+#'   \item{Fisher, R. A. (1930). Moments and product moments of sampling distributions.
+#'         Proceedings of the London Mathematical Society, 2(1), 199-238.}
+#' }
+#' 
+#' @export
+kurtosis <- function(x) {
+  # Remove missing values with warning
+  if (anyNA(x)) {
+    warning("NA values removed from input")
+    x <- x[!is.na(x)]
+  }
+  
+  n <- length(x)
+  
+  # Check for sufficient sample size
+  if (n < 4) {
+    warning("Insufficient sample size (n < 4) to compute kurtosis")
+    return(NA_real_)
+  }
+  
+  # Calculate central moments
+  xbar <- mean(x)
+  deviations <- x - xbar
+  m2 <- sum(deviations^2) / n
+  m4 <- sum(deviations^4) / n
+  
+  # Check for zero variance
+  if (abs(m2) < .Machine$double.eps^0.5) {
+    warning("Zero variance - kurtosis is undefined")
+    return(NA_real_)
+  }
+  
+  # Calculate unbiased excess kurtosis
+  g2 <- m4 / (m2^2) - 3
+  unbiased_kurtosis <- ((n - 1) / ((n - 2) * (n - 3))) * ((n + 1) * g2 + 6)
+  
+  return(unbiased_kurtosis)
+}

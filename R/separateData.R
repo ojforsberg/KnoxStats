@@ -1,0 +1,138 @@
+#' @title
+#' Separate Data into Train, Test, and Validation Sets
+#'
+#' @description
+#' Randomly splits a dataset into three subsets for machine learning:
+#' training, testing, and validation. This is essential for building
+#' reliable models that don't overfit to your data.
+#'
+#' @param dt A data frame or matrix containing the data to be split.
+#' @param prop A numeric vector of length 3 specifying the proportions for
+#'   train, test, and validation sets respectively. Must sum to 1.
+#'   Default is c(2/3, 1/6, 1/6).
+#'
+#' @return
+#' A list with three components:
+#' \item{train}{The training subset of the data}
+#' \item{test}{The testing subset of the data}
+#' \item{eval}{The validation subset of the data}
+#'
+#' @details
+#' This function helps you prepare data for machine learning by splitting it
+#' into three distinct sets:
+#' \itemize{
+#'   \item \strong{Training set}: Used to train your model (learn patterns)
+#'   \item \strong{Testing set}: Used to evaluate your model's performance
+#'   \item \strong{Validation set}: Used to tune model parameters and prevent overfitting
+#' }
+#'
+#' The function ensures that observations are randomly assigned without
+#' replacement, so each observation appears in only one set. The sample sizes
+#' are determined by rounding to the nearest whole number, which means the
+#' actual proportions might differ slightly from what you specify.
+#'
+#' \strong{Why use three sets?} In machine learning, using only training and testing
+#' sets can lead to "overfitting" - when your model performs well on test data
+#' but poorly on new, unseen data. The validation set provides an additional
+#' check to ensure your model generalizes well.
+#'
+#' @examples
+#' # Example 1: Basic usage with default proportions
+#' data(mtcars)
+#' sets <- separateData(mtcars)
+#' 
+#' # Check the sizes of each set
+#' cat("Training set size:", nrow(sets$train), "\n")
+#' cat("Testing set size:", nrow(sets$test), "\n")
+#' cat("Validation set size:", nrow(sets$eval), "\n")
+#' 
+#' # Example 2: Custom proportions (70% train, 20% test, 10% validation)
+#' sets2 <- separateData(mtcars, prop = c(0.7, 0.2, 0.1))
+#' 
+#' # Example 3: With a smaller dataset
+#' small_data <- data.frame(x = 1:20, y = rnorm(20))
+#' sets3 <- separateData(small_data)
+#' 
+#' # Example 4: Verify no overlap between sets
+#' sets <- separateData(iris)
+#' train_ids <- rownames(sets$train)
+#' test_ids <- rownames(sets$test)
+#' eval_ids <- rownames(sets$eval)
+#' 
+#' # Check that there's no overlap (should return 0)
+#' length(intersect(train_ids, test_ids))
+#'
+#' @importFrom stats runif
+#' @seealso
+#' \code{\link{sample}} for the random sampling function used internally,
+#' \code{\link{createDataPartition}} from the \code{caret} package for more
+#'   sophisticated data splitting with stratification,
+#' \code{\link{initial_split}} from the \code{rsample} package for tidy data
+#'   splitting approaches
+#'
+#' @references
+#' Goodfellow, Ian, Yoshua Bengio, and Aaron Courville. 2016. 
+#' \emph{Deep Learning}. Cambridge, MA: MIT Press.
+#' 
+#' James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2021. 
+#' \emph{An Introduction to Statistical Learning with Applications in R}. 
+#' 2nd ed. New York: Springer.
+#' 
+#' Kohavi, Ron. 1995. "A Study of Cross-Validation and Bootstrap for Accuracy 
+#' Estimation and Model Selection." In \emph{Proceedings of the 14th 
+#' International Joint Conference on Artificial Intelligence}, 
+#' 2:1137–43. San Francisco: Morgan Kaufmann.
+#'
+#' @export
+separateData <- function(dt, prop = c(2/3, 1/6, 1/6)) {
+  # Validate inputs
+  if (!is.data.frame(dt) && !is.matrix(dt)) {
+    stop("Input 'dt' must be a data frame or matrix")
+  }
+  
+  if (length(prop) != 3) {
+    stop("'prop' must be a vector of length 3")
+  }
+  
+  if (abs(sum(prop) - 1) > 1e-10) {
+    stop("Proportions in 'prop' must sum to 1")
+  }
+  
+  n <- nrow(dt)
+  
+  # Ensure we have enough observations
+  if (n < 3) {
+    stop("Dataset must have at least 3 observations for splitting")
+  }
+  
+  # Set random seed for reproducibility (optional but good practice)
+  # Users can set their own seed with set.seed() before calling this function
+  
+  # Create indices for all observations
+  all_indices <- 1:n
+  
+  # Calculate set sizes (rounding ensures we use all observations)
+  n_train <- round(n * prop[1])
+  n_test <- round(n * prop[2])
+  n_eval <- n - n_train - n_test  # Remaining for validation
+  
+  # Sample training indices
+  train_indices <- sample(n, n_train)
+  
+  # Get remaining indices after removing training samples
+  remaining <- all_indices[-train_indices]
+  
+  # Sample test indices from remaining
+  test_indices <- sample(remaining, n_test)
+  
+  # Validation indices are what's left
+  eval_indices <- all_indices[-c(train_indices, test_indices)]
+  
+  # Return list of subsets
+  list(
+    train = dt[train_indices, , drop = FALSE],
+    test = dt[test_indices, , drop = FALSE],
+    eval = dt[eval_indices, , drop = FALSE]
+  )
+}
+

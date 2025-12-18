@@ -1,0 +1,117 @@
+#' @title 
+#' Total Absolute Probability Difference (TAPD)
+#'
+#' @description
+#' Calculates the Total Absolute Probability Difference (TAPD), a measure of 
+#' distribution uniformity for categorical data. TAPD quantifies how evenly
+#' observations are distributed across categories, with values ranging from 
+#' 0 (perfectly uniform distribution) to 1 (all observations in one category).
+#'
+#' @param x A vector of categorical data (factor, character, or numeric categories).
+#' @param na.rm Logical; if TRUE (default), missing values (NA) are removed before 
+#' calculation. If FALSE and NAs are present, the function will return an error.
+#' 
+#' @return A single numeric value between 0 and 1, where:
+#' \itemize{
+#'   \item \strong{0}: Perfectly uniform distribution (equal counts in all categories)
+#'   \item \strong{1}: Maximum concentration (all observations in one category)
+#'   \item \strong{Values between 0-1}: Degree of deviation from perfect uniformity
+#' }
+#' 
+#' @details
+#' The Total Absolute Probability Difference (TAPD) measures how evenly 
+#' observations are distributed across different categories. It's particularly 
+#' useful for assessing:
+#' \itemize{
+#'   \item Survey response distributions
+#'   \item Market share equality
+#'   \item Species diversity in ecology
+#'   \item Resource allocation fairness
+#' }
+#' 
+#' The formula calculates: 
+#' \deqn{TAPD = 1 - \frac{\sum |f_i - \bar{f}|}{n}}
+#' where \eqn{f_i} is the frequency in category i, \eqn{\bar{f}} is the average 
+#' frequency (n/g), n is total observations, and g is number of categories.
+#' 
+#' This is a normalized version of the mean absolute deviation from uniformity.
+#'
+#' @examples
+#' # Example 1: Perfectly uniform distribution
+#' # Equal numbers in 4 categories
+#' uniform_data <- rep(c("A", "B", "C", "D"), each = 5)
+#' tapd(uniform_data)  # Returns 0 (perfect uniformity)
+#' 
+#' # Example 2: Highly concentrated distribution
+#' # All observations in one category
+#' concentrated_data <- rep("A", 20)
+#' tapd(concentrated_data)  # Returns 1 (maximum concentration)
+#' 
+#' # Example 3: Typical survey responses
+#' survey_responses <- c(
+#'   rep("Strongly Agree", 8),
+#'   rep("Agree", 12),
+#'   rep("Neutral", 5),
+#'   rep("Disagree", 3),
+#'   rep("Strongly Disagree", 2)
+#' )
+#' tapd(survey_responses)  # Returns ~0.467
+#' 
+#' # Example 4: Handling missing values
+#' data_with_na <- c("A", "B", NA, "A", "C", "B", NA, "A")
+#' tapd(data_with_na)  # Automatically removes NAs
+#' tapd(data_with_na, na.rm = FALSE)  # Will produce error
+#' 
+#' # Example 5: Compare different distributions
+#' dist1 <- rep(c("Yes", "No"), each = 10)  # Perfectly balanced
+#' dist2 <- c(rep("Yes", 15), rep("No", 5))  # Unbalanced
+#' 
+#' cat("Balanced distribution TAPD:", tapd(dist1), "\n")
+#' cat("Unbalanced distribution TAPD:", tapd(dist2), "\n")
+#'
+#' @references 
+#' Agresti, Alan. 2018. \emph{An Introduction to Categorical Data Analysis}. 
+#' 3rd ed. Hoboken, NJ: Wiley.
+#' 
+#' @seealso
+#' \code{\link{table}} for creating frequency tables,
+#' \code{\link{mean}} for calculating averages,
+#' \code{\link{na.omit}} for handling missing values,
+#' \code{\link{shannon}} in the vegan package for Shannon diversity index (alternative measure)
+#'
+#' @importFrom stats na.omit
+#' @export
+tapd <- function(x, na.rm = TRUE) {
+  # Handle missing values
+  if (na.rm) {
+    x <- stats::na.omit(x)
+  } else if (any(is.na(x))) {
+    stop("Missing values (NA) present in data. Use na.rm = TRUE to remove them.")
+  }
+  
+  # Calculate frequencies
+  freq_table <- table(x)
+  g <- length(freq_table)  # Number of categories
+  n <- length(x)           # Total observations
+  
+  # Check for edge cases
+  if (n == 0) {
+    warning("No observations after removing missing values.")
+    return(NA)
+  }
+  
+  if (g <= 1) {
+    warning("Only one category present. TAPD is not meaningful.")
+    return(1)  # All in one category = maximum concentration
+  }
+  
+  # Calculate expected uniform frequency
+  expected_freq <- n / g
+  
+  # Calculate TAPD
+  deviations <- abs(as.numeric(freq_table) - expected_freq)
+  tapd_value <- 1 - sum(deviations) / n
+  
+  # Ensure result is between 0 and 1
+  return(max(0, min(1, tapd_value)))
+}
