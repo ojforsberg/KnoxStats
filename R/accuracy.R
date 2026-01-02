@@ -262,7 +262,40 @@ fpr <- function(confusion) {
   return(FP / (FP + TN))
 }
 
-sensitivity=recall
 
-specificity = 1-fpr
+
+#' @rdname accuracy
+#' @export
+sensitivity <- function(confusion) {
+  if (!is.matrix(confusion) || !all(dim(confusion) == c(2, 2))) {
+    stop("Input must be a 2x2 confusion matrix")
+  }
+  
+  TP <- confusion[1, 1]
+  FN <- confusion[2, 1]
+  
+  if (TP + FN == 0) {
+    return(0)
+  }
+  
+  return(TP / (TP + FN))
+}
+
+
+#' @rdname accuracy
+#' @export
+specificity <- function(confusion) {
+  if (!is.matrix(confusion) || !all(dim(confusion) == c(2, 2))) {
+    stop("Input must be a 2x2 confusion matrix")
+  }
+  
+  FP <- confusion[1, 2]
+  TN <- confusion[2, 2]
+  
+  if (FP + TN == 0) {
+    return(0)
+  }
+  
+  return(1 - FP / (FP + TN))
+}
 
