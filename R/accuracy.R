@@ -261,3 +261,8 @@ fpr <- function(confusion) {
   
   return(FP / (FP + TN))
 }
+
+sensitivity=recall
+
+specificity = 1-fpr
+
