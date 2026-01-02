@@ -1,6 +1,6 @@
 Package: KnoxStats
 Title: Support Functions for Statistics at Knox College
-Version: 0.1.0.51218
+Version: 0.1.0.60102
 Authors@R: 
     person(given=c("Ole","J."), 
     family="Forsberg", 
@@ -21,3 +21,4 @@ Suggests:
 Depends: 
     R (>= 3.5)
 LazyData: true
+
