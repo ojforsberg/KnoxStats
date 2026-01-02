@@ -28,6 +28,8 @@
 #'   \item \code{phiCoef()}: Phi coefficient (similar to correlation)
 #'   \item \code{precision()}: Precision (positive predictive value)
 #'   \item \code{recall()}: Recall (sensitivity, true positive rate)
+#'   \item \code{sensitivity()}: (reacall, true positive rate)
+#'   \item \code{specificity()}: True negative rate
 #' }
 #'
 #' @details
@@ -298,4 +300,5 @@ specificity <- function(confusion) {
   
   return(1 - FP / (FP + TN))
 }
+
 
