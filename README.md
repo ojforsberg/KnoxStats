@@ -8,10 +8,13 @@
 
 **A Pedagogical R Package for Learning Statistics Through Practice**
 
-![R](https://img.shields.io/badge/R-%23276DC3.svg?style=for-the-badg&logo=r&logoColor=white)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![R](https://img.shields.io/badge/-script-276DC3.svg?style=flat&logo=R)](https://cran.r-project.org)
+[![RStudio](https://img.shields.io/badge/RStudio-project-75AADB.svg?style=flat&logo=RStudio)](https://www.rstudio.com)
+
 ![Version](https://img.shields.io/badge/Version-0.1.0-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Active-success.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 
 </div>
 
