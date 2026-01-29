@@ -77,3 +77,7 @@ KnoxStats was developed with support from:
 **Made with ❤️ for statistics education**
 
 *"The best way to learn statistics is to do statistics."*
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
