@@ -1,8 +1,10 @@
 # KnoxStats 📊
 
-<p>
-<img src="hex-KnoxStats.png" alt="KnoxStats Hex" style="width:500; margin:2em auto;">
-</p>
+<div align="center">
+<img src="hex-KnoxStats.png" alt="KnoxStats Hex" style="width:500;">
+
+<p>&nbsp;</p>
+
 
 **A Pedagogical R Package for Learning Statistics Through Practice**
 
@@ -11,6 +13,7 @@
 ![Version](https://img.shields.io/badge/Version-0.1.0-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
+</div>
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -51,7 +54,7 @@ devtools::install_github("ojforsberg/KnoxStats")
 4. **Learning Objectives**: Each function clearly states what concepts it teaches
 5. **Practice Exercises**: Built-in exercises with solutions
 
-View the full documentation at: [knoxstats.github.io](https://knoxstats.github.io)
+View the full documentation at: [https://github.com/ojforsberg/KnoxStats](https://github.com/ojforsberg/KnoxStats)
 
 ## 📄 License
 
