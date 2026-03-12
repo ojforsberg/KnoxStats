@@ -29,11 +29,15 @@ KnoxStats is an educational R package designed specifically for undergraduate st
 
 > **Learning statistics should be about understanding concepts, not wrestling with code complexity.**
 
+<p>&nbsp;</p>
+
 ## ✨ Key Features
 
 - **Beginner-Friendly Functions**: Clear parameter names and comprehensive error messages
 - **Practical Examples**: Real-world datasets and scenarios students can relate to
 - **Educational Documentation**: Each function explains the "why" behind the "how"
+
+<p>&nbsp;</p>
 
 ## 📦 Installation
 
@@ -46,7 +50,9 @@ install.packages("devtools")
 # Install KnoxStats
 devtools::install_github("ojforsberg/KnoxStats")
 ```
- 
+
+ <p>&nbsp;</p>
+
 ## 🏫 Designed for the Classroom
 
 ### Features That Help Students Learn:
@@ -59,15 +65,22 @@ devtools::install_github("ojforsberg/KnoxStats")
 
 View the full documentation at: [https://github.com/ojforsberg/KnoxStats](https://github.com/ojforsberg/KnoxStats)
 
+<p>&nbsp;</p>
+
 ## 📄 License
 
 This package is released under the GPL-3 License. See the [LICENSE](LICENSE) file for details.
+
+<p>&nbsp;</p>
 
 ## 📞 Support & Community
 
 - **GitHub Issues**: Report bugs or request features
 - **Discussions**: Ask questions and share teaching ideas
 - **Email**: ojforsberg@knox.edu
+
+<p>&nbsp;</p>
+
 
 ## 🙏 Acknowledgments
 
@@ -76,8 +89,11 @@ KnoxStats was developed with support from:
 - Feedback from hundreds of undergraduate students
 
 ---
+<p>&nbsp;</p>
 
 **Made with ❤️ for statistics education**
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 *"The best way to learn statistics is to do statistics."*
 
