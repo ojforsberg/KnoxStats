@@ -1,6 +1,6 @@
 Package: KnoxStats
 Title: Support Functions for Statistics at Knox College
-Version: 0.1.0.60102
+Version: 0.1.0.60401
 Authors@R: 
     person(given=c("Ole","J."), 
     family="Forsberg", 
