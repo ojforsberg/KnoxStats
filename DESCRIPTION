@@ -13,11 +13,14 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports: 
+    agricolae,
     car,
     lmtest,
-    lawstat
+    lawstat,
+    MASS,
+    nnet
 Suggests: 
-    MASS
+    foreign
 Depends: 
     R (>= 3.5)
 LazyData: true
